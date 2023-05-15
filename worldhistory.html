@@ -1,0 +1,97 @@
+<html>
+<head>
+  <title>AP World History Score Calculator</title>
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      margin: auto;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    input {
+      width: 100px;
+    }
+
+    button {
+      margin: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>AP World History Score Calculator</h1>
+  <table>
+    <tr>
+      <td>Multiple Choice Questions (55)</td>
+      <td><input id="mc" type="range" min="0" max="55" value="0" oninput="updateValue('mc')"></td>
+      <td><span id="mc-value">0</span></td>
+    </tr>
+    <tr>
+      <td>Short Answer Questions (3)</td>
+      <td><input id="sa" type="range" min="0" max="9" value="0" oninput="updateValue('sa')"></td>
+      <td><span id="sa-value">0</span></td>
+    </tr>
+    <tr>
+      <td>Document Based Question (1)</td>
+      <td><input id="dbq" type="range" min="0" max="7" value="0" oninput="updateValue('dbq')"></td>
+      <td><span id="dbq-value">0</span></td>
+    </tr>
+    <tr>
+      <td>Long Essay Question (1)</td>
+      <td><input id="leq" type="range" min="0" max="6" value="0" oninput="updateValue('leq')"></td>
+      <td><span id="leq-value">0</span></td>
+    </tr>
+  </table>
+  <button id="calculate" onclick="calculateScore()">Calculate Score</button>
+  <p id="result"></p>
+
+  <script>
+    // A function that updates the value of the slider
+    function updateValue(id) {
+      // Get the value of the slider
+      var value = document.getElementById(id).value;
+
+      // Display the value next to the slider
+      document.getElementById(id + "-value").innerHTML = value;
+    }
+
+    // A function that calculates the score based on the inputs
+    function calculateScore() {
+      // Get the values of the inputs
+      var mc = document.getElementById("mc").value;
+      var sa = document.getElementById("sa").value;
+      var dbq = document.getElementById("dbq").value;
+      var leq = document.getElementById("leq").value;
+
+      // Calculate the raw score
+      var rawScore = mc * 1.03 + sa * 3.06 + dbq * 4.59 + leq * 3.82;
+
+      // Convert the raw score to a scaled score
+      var scaledScore = 0;
+      if (rawScore >= 113.75) {
+        scaledScore = 5;
+      } else if (rawScore >= 96.88) {
+        scaledScore = 4;
+      } else if (rawScore >= 80) {
+        scaledScore = 3;
+      } else if (rawScore >= 63.13) {
+        scaledScore = 2;
+      } else {
+        scaledScore = 1;
+      }
+
+      // Display the result
+      document.getElementById("result").innerHTML = "Your AP World History score is " + scaledScore + ".";
+    }
+  </script>
+</body>
+</html>
+
